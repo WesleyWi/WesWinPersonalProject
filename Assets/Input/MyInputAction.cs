@@ -285,6 +285,17 @@ public partial class @MyInputAction: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""6d872c62-fcce-467a-9cd7-e826299e229b"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""f533620f-1916-49d0-ae24-9435a29f22cd"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
