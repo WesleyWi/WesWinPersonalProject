@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4442.817, g: 2648.7678, b: 1630.4651, a: 1}
+  m_IndirectSpecularColor: {r: 4815.683, g: 3059.4124, b: 2231.9495, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -664,7 +664,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3.5
   walkSpeed: 3.5
-  sprintSpeed: 7
+  sprintSpeed: 10
   isCrouching: 0
   standingHeight: 2
   crouchingHeight: 0.5
