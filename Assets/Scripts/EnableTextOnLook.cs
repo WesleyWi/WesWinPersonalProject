@@ -1,45 +1,25 @@
 using UnityEngine;
 using TMPro;
 
-public class EnableTextOnLook : MonoBehaviour
+public class EnableTextOnEnter : MonoBehaviour
 {
-    public Transform player; // Reference to the player's camera or transform.
     public TextMeshPro textMeshPro; // Reference to your 3D TextMeshPro object.
-    public float activationDistance = 5f; // Adjust this distance based on your needs.
 
-    private bool playerInRange = false;
-
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        // Calculate the distance between the box and the player.
-        float distance = Vector3.Distance(transform.position, player.position);
-
-        if (distance <= activationDistance && IsPlayerLookingAtBox())
+        if (other.CompareTag("Player"))
         {
-            // Player is close and looking at the box.
+            // Player has entered the collider, so enable the text.
             textMeshPro.enabled = true;
-        }
-        else
-        {
-            // Player is not close or not looking at the box.
-            textMeshPro.enabled = false;
         }
     }
 
-    bool IsPlayerLookingAtBox()
+    private void OnTriggerExit(Collider other)
     {
-        // Use Raycasting to determine if the player is looking at the box.
-        Ray ray = new Ray(player.position, player.forward);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, activationDistance))
+        if (other.CompareTag("Player"))
         {
-            if (hit.collider.gameObject == gameObject)
-            {
-                return true;
-            }
+            // Player has exited the collider, so disable the text.
+            textMeshPro.enabled = false;
         }
-
-        return false;
     }
 }
