@@ -8,7 +8,6 @@ public class ShootingScript : MonoBehaviour
     public GameObject projectilePrefab; // Assign your projectile prefab in the Inspector.
     public float shootForce = 10f;
     public float maxShootDistance = 5f; // Maximum shooting distance in feet.
-    public float minDistanceToBlock = 1f; // Minimum distance to "block" objects in feet.
 
     private MyInputAction inputActions;
 
@@ -53,14 +52,8 @@ public class ShootingScript : MonoBehaviour
             {
                 if (hit.collider.CompareTag("block"))
                 {
-                    // Calculate the distance to the "block" object
-                    float distanceToBlock = Vector3.Distance(gunTransform.position, hit.point);
-
-                    // If the distance is less than the minimum allowed distance, return false to indicate that shooting is blocked.
-                    if (distanceToBlock < minDistanceToBlock)
-                    {
-                        return false;
-                    }
+                    // If the obstacle hit has the "block" tag, return false to indicate that shooting is blocked.
+                    return false;
                 }
             }
         }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4815.066, g: 3058.8596, b: 2231.6174, a: 1}
+  m_IndirectSpecularColor: {r: 4811.8657, g: 3056.6233, b: 2230.3713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -709,7 +709,8 @@ MonoBehaviour:
     type: 3}
   shootForce: 20
   maxShootDistance: 5
-  minDistanceToBlock: 2
+  blockingTag: block
+  blockDistance: 5
 --- !u!1 &188796097
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 87.02, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &205857204
@@ -906,6 +907,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: block
+      objectReference: {fileID: 0}
+    - target: {fileID: 6775327753240810081, guid: a7325703f13b22d498bdad29bd4185a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1297,7 +1303,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
