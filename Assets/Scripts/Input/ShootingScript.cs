@@ -108,11 +108,7 @@ public class ShootingScript : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, maxShootDistance))
             {
-                if (hit.collider.CompareTag("block"))
-                {
-                    // If the obstacle hit has the "block" tag, return false to indicate that shooting is blocked.
-                    return false;
-                }
+             
             }
         }
 
