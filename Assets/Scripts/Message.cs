@@ -44,18 +44,4 @@ public class Message : MonoBehaviour
             }
         }
     }
-
-    // Handle object picked up event
-    public void OnObjectPickedUp()
-    {
-        // Disable the MeshRenderer when an object is picked up
-        GetComponent<MeshRenderer>().enabled = false;
-    }
-
-    // Handle object dropped event
-    public void OnObjectDropped()
-    {
-        // Enable the MeshRenderer when no object is held
-        GetComponent<MeshRenderer>().enabled = true;
-    }
 }
