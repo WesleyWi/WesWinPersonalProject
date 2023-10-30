@@ -13,15 +13,11 @@ public class ShootingScript : MonoBehaviour
     public float pickupDistance = 2f; // Maximum pickup distance in feet.
     private GameObject heldObject; // The object currently held by the player.
 
-    [Header("References")]
-    public Message message; // Reference to the Message script
-
     private MyInputAction inputActions;
 
     private void Awake()
     {
         inputActions = new MyInputAction();
-        inputActions.Player.Shoot.performed += _ => TryShoot();
         inputActions.Player.Pickup.performed += _ => TogglePickupDrop();
     }
 
@@ -44,21 +40,6 @@ public class ShootingScript : MonoBehaviour
             FollowCamera();
         }
     }
-
-    private void TryShoot()
-    {
-        // Check if there's an obstacle within maxShootDistance
-        if (CanShoot())
-        {
-            Shoot();
-        }
-        else
-        {
-            // You can provide feedback to the player here, like a message or sound indicating that shooting is blocked.
-            Debug.Log("Obstacle in the way or target is too close to shoot.");
-        }
-    }
-
     private void TogglePickupDrop()
     {
         if (heldObject == null)
@@ -97,22 +78,6 @@ public class ShootingScript : MonoBehaviour
             heldObject.GetComponent<Collider>().enabled = true;
             heldObject = null;
         }
-    }
-
-    private bool CanShoot()
-    {
-        if (gunTransform != null && projectilePrefab != null)
-        {
-            // Create a ray from the gun position in the direction the gun is pointing
-            Ray ray = new Ray(gunTransform.position, gunTransform.forward);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, maxShootDistance))
-            {
-             
-            }
-        }
-
-        return true; // Shooting is allowed if no obstacles are blocking the line of sight.
     }
 
     private void Shoot()
