@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 4813.7964, g: 3057.9612, b: 2231.262, a: 1}
+  m_IndirectSpecularColor: {r: 4814.683, g: 3058.6077, b: 2231.4963, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1059,6 +1059,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &778567365 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4976530096116125313, guid: c055deed895ebe94e986bcd170965d09,
+    type: 3}
+  m_PrefabInstance: {fileID: 6422698861356234920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1247052581 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7433420252705968552, guid: c055deed895ebe94e986bcd170965d09,
+    type: 3}
+  m_PrefabInstance: {fileID: 6422698861356234920}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &1350023686
 Mesh:
   m_ObjectHideFlags: 0
@@ -1409,6 +1421,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082155793172851038, guid: c055deed895ebe94e986bcd170965d09,
+        type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 778567365}
+    - target: {fileID: 6082155793172851038, guid: c055deed895ebe94e986bcd170965d09,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1247052581}
+    - target: {fileID: 6082155793172851038, guid: c055deed895ebe94e986bcd170965d09,
+        type: 3}
+      propertyPath: projectileSpeed
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6082155793172851038, guid: c055deed895ebe94e986bcd170965d09,
         type: 3}
