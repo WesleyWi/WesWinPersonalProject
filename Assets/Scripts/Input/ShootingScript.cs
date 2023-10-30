@@ -18,6 +18,7 @@ public class ShootingScript : MonoBehaviour
     private void Awake()
     {
         inputActions = new MyInputAction();
+        inputActions.Player.Shoot.performed += _ => TryShoot();
         inputActions.Player.Pickup.performed += _ => TogglePickupDrop();
     }
 
@@ -80,6 +81,20 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
+    private void TryShoot()
+    {
+        // Check if there's an obstacle within maxShootDistance
+        if (CanShoot())
+        {
+            Shoot();
+        }
+        else
+        {
+            // You can provide feedback to the player here, like a message or sound indicating that shooting is blocked.
+            Debug.Log("Obstacle in the way or target is too close to shoot.");
+        }
+    }
+
     private void Shoot()
     {
         if (gunTransform != null && projectilePrefab != null)
@@ -91,6 +106,22 @@ public class ShootingScript : MonoBehaviour
             // Display a debug message when you shoot
             Debug.Log("Shot fired!");
         }
+    }
+
+    private bool CanShoot()
+    {
+        if (gunTransform != null && projectilePrefab != null)
+        {
+            // Create a ray from the gun position in the direction the gun is pointing
+            Ray ray = new Ray(gunTransform.position, gunTransform.forward);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, maxShootDistance))
+            {
+
+            }
+        }
+
+        return true; // Shooting is allowed if no obstacles are blocking the line of sight.
     }
 
     private void PositionHeldObject()
