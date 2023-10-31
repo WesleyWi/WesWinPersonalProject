@@ -10,6 +10,9 @@ public class Message : MonoBehaviour
     private Transform player; // Reference to the player's transform component
     private bool isTextEnabled = false;
 
+    private bool isCubePickedUp = false;
+
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -17,8 +20,25 @@ public class Message : MonoBehaviour
 
     private void Update()
     {
-        if (cubeToFollow != null)
+        if (cubeToFollow != null && cubeToFollow.CompareTag("box"))
         {
+            // Handle picking up the cube
+            if (Input.GetMouseButtonDown(1) && !isCubePickedUp)
+            {
+                // Right-click to pick up the cube
+                isCubePickedUp = true;
+                // Disable the 3D text
+                isTextEnabled = false;
+                GetComponent<MeshRenderer>().enabled = false;
+            }
+            // Handle dropping the cube
+            else if (Input.GetMouseButtonDown(1) && isCubePickedUp)
+            {
+                // Right-click to drop the cube
+                isCubePickedUp = false;
+                // Re-enable the 3D text
+            }
+
             // Set the text's position to match the cube's position with an offset on the Y-axis.
             Vector3 newPosition = cubeToFollow.position;
             newPosition.y += offset;
@@ -27,7 +47,7 @@ public class Message : MonoBehaviour
             // Check proximity to the player.
             float distance = Vector3.Distance(transform.position, player.position);
 
-            if (distance <= proximityDistance)
+            if (distance <= proximityDistance && !isCubePickedUp)
             {
                 // Enable the 3D text
                 isTextEnabled = true;
@@ -44,4 +64,5 @@ public class Message : MonoBehaviour
             }
         }
     }
+
 }
