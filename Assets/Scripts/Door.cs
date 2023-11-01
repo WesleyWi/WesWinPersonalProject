@@ -12,10 +12,12 @@ public class Door : MonoBehaviour
     private Vector3 initialPosition;
     private Vector3 targetPosition;
     private bool isOpen = false;
+    private Transform doorTransform;
 
     private void Start()
     {
-        initialPosition = transform.position;
+        doorTransform = transform.GetChild(0); // Assuming the door is the first child.
+        initialPosition = doorTransform.localPosition;
         targetPosition = initialPosition + openDirection.normalized * slideDistance;
     }
 
@@ -51,9 +53,9 @@ public class Door : MonoBehaviour
 
     private IEnumerator SlideDoor(Vector3 target)
     {
-        while (Vector3.Distance(transform.position, target) > 0.01f)
+        while (Vector3.Distance(doorTransform.localPosition, target) > 0.01f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, slideSpeed * Time.deltaTime);
+            doorTransform.localPosition = Vector3.MoveTowards(doorTransform.localPosition, target, slideSpeed * Time.deltaTime);
             yield return null;
         }
     }
