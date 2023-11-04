@@ -3,48 +3,58 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    public Transform[] targetPoints; // An array of target points for the platform to follow
+    public float moveSpeed = 2.0f; // Adjust the speed as needed
+
     private List<CharacterController> playersOnPlatform = new List<CharacterController>();
-    private Vector3 platformStartPosition;
+    private int currentTargetIndex = 0;
     private Vector3 previousPlatformPosition;
-    private float platformSpeed = 2.0f; // Adjust the speed as needed
-    private float platformRange = 5.0f; // Adjust the range as needed
 
     private void Start()
     {
-        platformStartPosition = transform.position;
-        previousPlatformPosition = platformStartPosition;
+        if (targetPoints.Length == 0)
+        {
+            Debug.LogWarning("No target points assigned to the moving platform.");
+            enabled = false; // Disable the script to prevent errors.
+        }
+
+        previousPlatformPosition = transform.position;
     }
 
     private void Update()
     {
-        // Calculate the platform's horizontal (back-and-forth) movement
-        float platformMovement = Mathf.PingPong(Time.time * platformSpeed, platformRange * 2) - platformRange;
-
-        // Calculate the final position of the platform
-        Vector3 finalPlatformPosition = platformStartPosition + new Vector3(platformMovement, 0, 0);
-
-        // Move the platform to the final position
-        transform.position = finalPlatformPosition;
-
-        // Move each player on the platform
-        foreach (var playerController in playersOnPlatform)
+        if (targetPoints.Length > 0)
         {
-            // Calculate the player's movement based on platform movement
-            Vector3 playerMovement = CalculatePlayerMovement(playerController, platformMovement);
-            playerController.Move(playerMovement);
-        }
+            // Move the platform toward the current target point
+            Transform currentTarget = targetPoints[currentTargetIndex];
+            float step = moveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, step);
 
-        // Update the previous platform position for the next frame
-        previousPlatformPosition = finalPlatformPosition;
+            // If the platform reaches the current target point, move to the next target
+            if (Vector3.Distance(transform.position, currentTarget.position) < 0.01f)
+            {
+                currentTargetIndex = (currentTargetIndex + 1) % targetPoints.Length;
+            }
+
+            Vector3 platformMovementDelta = transform.position - previousPlatformPosition;
+
+            // Move each player on the platform
+            foreach (var playerController in playersOnPlatform)
+            {
+                // Calculate the player's movement based on the platform movement delta
+                Vector3 playerMovement = CalculatePlayerMovement(playerController, platformMovementDelta);
+                playerController.Move(playerMovement);
+            }
+
+            // Update the previous platform position for the next frame
+            previousPlatformPosition = transform.position;
+        }
     }
 
-    private Vector3 CalculatePlayerMovement(CharacterController playerController, float platformMovement)
+    private Vector3 CalculatePlayerMovement(CharacterController playerController, Vector3 platformMovementDelta)
     {
-        // Calculate the difference between the platform's current and previous positions
-        Vector3 platformDelta = transform.position - previousPlatformPosition;
-
         // Adjust the player's position to match the platform's movement
-        Vector3 playerMovement = playerController.transform.position + platformDelta - playerController.transform.position;
+        Vector3 playerMovement = playerController.transform.position + platformMovementDelta - playerController.transform.position;
 
         return playerMovement;
     }
