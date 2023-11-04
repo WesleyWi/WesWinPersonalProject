@@ -7,6 +7,7 @@ public class MovingPlatform : MonoBehaviour
     public float moveSpeed = 2.0f; // Adjust the speed as needed
 
     private List<CharacterController> playersOnPlatform = new List<CharacterController>();
+    private List<Rigidbody> boxesOnPlatform = new List<Rigidbody>(); // List for objects with the "Box" tag
     private int currentTargetIndex = 0;
     private Vector3 previousPlatformPosition;
 
@@ -46,6 +47,14 @@ public class MovingPlatform : MonoBehaviour
                 playerController.Move(playerMovement);
             }
 
+            // Move each object with the "Box" tag on the platform
+            foreach (var boxRigidbody in boxesOnPlatform)
+            {
+                // Calculate the box's movement based on the platform movement delta
+                Vector3 boxMovement = CalculateBoxMovement(boxRigidbody, platformMovementDelta);
+                boxRigidbody.MovePosition(boxRigidbody.position + boxMovement);
+            }
+
             // Update the previous platform position for the next frame
             previousPlatformPosition = transform.position;
         }
@@ -59,9 +68,16 @@ public class MovingPlatform : MonoBehaviour
         return playerMovement;
     }
 
+    private Vector3 CalculateBoxMovement(Rigidbody boxRigidbody, Vector3 platformMovementDelta)
+    {
+        // Adjust the box's position to match the platform's movement
+        Vector3 boxMovement = platformMovementDelta;
+
+        return boxMovement;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // Check if a player enters the trigger zone
         if (other.CompareTag("Player"))
         {
             CharacterController playerController = other.GetComponent<CharacterController>();
@@ -70,17 +86,32 @@ public class MovingPlatform : MonoBehaviour
                 playersOnPlatform.Add(playerController);
             }
         }
+        else if (other.CompareTag("box")) // Check if an object with the "Box" tag enters the trigger zone
+        {
+            Rigidbody boxRigidbody = other.GetComponent<Rigidbody>();
+            if (boxRigidbody != null)
+            {
+                boxesOnPlatform.Add(boxRigidbody);
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        // Check if a player exits the trigger zone
         if (other.CompareTag("Player"))
         {
             CharacterController playerController = other.GetComponent<CharacterController>();
             if (playerController != null)
             {
                 playersOnPlatform.Remove(playerController);
+            }
+        }
+        else if (other.CompareTag("box")) // Check if an object with the "Box" tag exits the trigger zone
+        {
+            Rigidbody boxRigidbody = other.GetComponent<Rigidbody>();
+            if (boxRigidbody != null)
+            {
+                boxesOnPlatform.Remove(boxRigidbody);
             }
         }
     }
