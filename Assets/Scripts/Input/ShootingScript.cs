@@ -5,7 +5,7 @@ public class ShootingScript : MonoBehaviour
 {
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public Camera playerCamera; // Reference to the player's camera
+    public Camera playerCamera;
     public float shootForce = 10f;
 
     private GameObject heldObject = null;
@@ -31,6 +31,7 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
+    // Makes character shoot at a spawn point.
     private void Shoot()
     {
         GameObject newProjectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
@@ -41,12 +42,13 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
+    // Makes character pick the object up depending on the tag.
     private void TryPickUp()
     {
         RaycastHit hit;
         Ray ray = playerCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
 
-        if (Physics.Raycast(ray, out hit, 10f))
+        if (Physics.Raycast(ray, out hit, 5f))
         {
             if (hit.collider.CompareTag("box"))
             {
@@ -56,6 +58,7 @@ public class ShootingScript : MonoBehaviour
         }
     }
 
+    // Makes character hold the object
     private void PickUpObject(GameObject objToPickUp)
     {
         isHoldingObject = true;
@@ -63,22 +66,21 @@ public class ShootingScript : MonoBehaviour
 
         Debug.Log("Holding " + heldObject.name);
 
-        // You can customize the behavior here, like attaching the object to the camera's forward direction.
         heldObject.transform.parent = playerCamera.transform;
         heldObject.GetComponent<Rigidbody>().isKinematic = true;
     }
 
+    //Makes the character drop the object
     private void DropHeldObject()
     {
         Debug.Log("Dropped " + heldObject.name);
 
-        // You can customize the behavior here, like releasing the object.
         heldObject.transform.parent = null;
         Rigidbody rb = heldObject.GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.isKinematic = false;
-            rb.velocity = Vector3.zero; // Set velocity to zero so it doesn't launch
+            rb.velocity = Vector3.zero; // Set velocity to launch
         }
 
         heldObject = null;

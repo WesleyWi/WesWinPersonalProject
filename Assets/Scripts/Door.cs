@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
 
     private void Start()
     {
-        doorTransform = transform.GetChild(0); // Assuming the door is the first child.
+        doorTransform = transform.GetChild(0);
         initialPosition = doorTransform.localPosition;
         targetPosition = initialPosition + openDirection.normalized * slideDistance;
     }

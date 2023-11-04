@@ -83,6 +83,7 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
+    //Makes camera look
     private void ProcessLook()
     {
         Vector2 lookVector = playerInputActions.Player.Look.ReadValue<Vector2>();
@@ -94,6 +95,7 @@ public class PlayerControler : MonoBehaviour
         transform.Rotate(Vector3.up * (lookVector.x * Time.deltaTime) * xSensitivity);
     }
 
+    //Makes character move
     public void ProcessMovement()
     {
         Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
@@ -114,6 +116,7 @@ public class PlayerControler : MonoBehaviour
         Debug.Log(context);
     }
 
+    //Makes character Crouch
     public void ProcessCrouch()
     {
         float heightChange;
@@ -132,6 +135,8 @@ public class PlayerControler : MonoBehaviour
             playerController.height = Mathf.Lerp(playerController.height, heightChange, crouchingSpeed);
         }
     }
+
+    //Makes character Jump.
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.performed)

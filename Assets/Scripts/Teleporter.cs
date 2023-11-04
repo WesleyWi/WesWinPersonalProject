@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Teleporter : MonoBehaviour
 {
-    // The tag you want to teleport (e.g., "Player" or "Box").
+    // The tag you want to teleport
     public string targetTag = "Player";
     // The empty object where the target will be teleported.
     public Transform teleportDestination;

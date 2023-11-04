@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour
 {
-    public string targetTag = "Projectile"; // Set your desired tag here
-    public Material greenMaterial; // Assign your green material in the Unity Inspector
-    public GameObject objectToMove; // Assign the object you want to move in the Unity Inspector
-    public float moveDistance = 2.0f; // Set the distance you want the object to move
+    public string targetTag = "Projectile"; // Set tag here
+    public Material greenMaterial; // Assign material
+    public GameObject objectToMove; // Assign the object
+    public float moveDistance = 2.0f; // Set the distance
     public float moveSpeed = 1.0f; // Set the speed at which the object moves
 
     private bool hasEntered = false;
@@ -23,7 +23,7 @@ public class Switch : MonoBehaviour
                 meshRenderer.material = greenMaterial;
             }
 
-            // Start the procedural animation to move the assigned object up
+            // Start the procedural animation.
             StartCoroutine(MoveObjectUp());
             hasEntered = true;
         }
