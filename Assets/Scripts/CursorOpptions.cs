@@ -1,29 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CursorOpptions : MonoBehaviour
 {
-    private bool isCursorLocked = true;
+    // Specify the scene index where you want to lock the cursor
+    public int sceneToLockCursor = 1;
 
-    void Start()
+    private void Start()
     {
-        LockCursor();
-    }
+        // Check the current scene index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-    void Update()
-    {
-        // key or button press to toggle the cursor lock and visibility
-        if (Input.GetKeyDown(KeyCode.Escape)) // Change to your preferred key or button
-        {
-            isCursorLocked = !isCursorLocked;
-            LockCursor();
-        }
-    }
-
-    void LockCursor()
-    {
-        if (isCursorLocked)
+        // Lock or show the cursor based on the scene index
+        if (currentSceneIndex == sceneToLockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -34,4 +25,5 @@ public class CursorOpptions : MonoBehaviour
             Cursor.visible = true;
         }
     }
+
 }
